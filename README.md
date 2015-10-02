@@ -1,5 +1,6 @@
-Hi, This is just a site I am building for 
+Hi, This is just a site I am building for my portfolio
 My primary role is front end developer 
+[My Site](http://juliusalvarado.info/)
 
 [![Julius Alvarado Logo](http://juliusalvarado.info/assets/images/p2.png)](http://juliusalvarado.info/)
 
