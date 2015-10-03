@@ -86,20 +86,36 @@ angular
                 url: '/channels',
                 controller: 'ChannelCtrl as channel',
                 templateUrl: 'channels/channels.html',
-                resolve: {
+                resolve: {//resolve these 2 dependencies.
                     channels: function (Channels) {
+                        //this 'promises' the firebaseArray of channels
                         return Channels.$loaded();
                     },
                     profile: function ($state, Auth, Users) {
+                        //ensure the user has a displayName, otherwise send to the profile state.
+                        //and if the user is not authenticated send to the home state.
                         return Auth.$requireAuth().then(function (auth) {
-                            console.log("julius, auth = "+auth);
+                            //console.log("julius, auth = "+auth);
                             return Users.getProfile(auth.uid).$loaded().then(function (profile) {
                                 if(profile.displayName) return profile;
                                 else $state.go('profile');
                             }, function (error) {
+                                console.log("there was an error getting the profile, error ="+error);
                                 $state.go('home');
                             });
                         });
+                    }
+                }
+            })
+            .state('channels.messages', {
+                url: '/{channelId}/messages',
+                resolve: {
+                    //ensure the messages and channelName are available imm! upon entering this state
+                    messages: function ($stateParams, Messages) {
+                        return Messages.forChannel($stateParams.channelId).$loaded();
+                    },
+                    channelName: function ($stateParams, channels) {
+                        return '#'+channels.$getRecord($stateParams.channelId).name;
                     }
                 }
             })
