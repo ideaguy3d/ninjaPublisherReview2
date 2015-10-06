@@ -27,8 +27,23 @@
     your browser</a> to improve your experience.</p>
 <![endif]-->
 
-<header class="navbar navbar-fixed-top" ng-include="core/views/header.client.view.html"></header>
+<header data-ng-include="'core/views/header.client.view.html'" data-ng-controller="HeaderController"
+        class="navbar navbar-fixed-top" ng-style="style4vert"></header>
 <ui-view></ui-view>
+
+<footer id="publisher-details2" class="container-fluid">
+    <div class="bottom-area text-center">
+        <h3>Ninja Publishers Review is a fictitious site made by <a href="https://github.com/nbr1ninrsan2"
+                                                                    target="_blank">Julius Alvarado</a></h3>
+        <h6>version 0.0.1</h6>
+        <div class="row" >
+            <p style="display: block; padding-right: 1000px">Built with:</p>
+            <a style="vertical-align: bottom" class="col-md-2 col-sm-2 center-block" href="http://angularjs.org">
+                <img class="img-responsive" src="https://angularjs.org/img/AngularJS-large.png" alt="angular.js" />
+            </a>
+        </div>
+    </div>
+</footer>
 
 
 <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->

@@ -140,7 +140,7 @@ angular
                 controller: 'ChannelCtrl as channel'
             })
             .state('publisher_details', {
-                url: '/:publisher',
+                url: '/{publisher}',
                 templateUrl: 'core/views/template-publisher.html'
             })
             .state('indie_devs', {
