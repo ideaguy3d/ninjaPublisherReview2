@@ -5,15 +5,23 @@ angular.module('ngfireApp').controller("ChannelCtrl",
     ['$state', 'Auth', 'Users', 'profile', 'channels',
         function ($state, Auth, Users, profile, channels) {
             var channelCtrl = this;
+
+            Users.setOnline(profile.$id);
+
             channelCtrl.profile = profile;
             channelCtrl.channels = channels;
+            channelCtrl.users = Users.all;
 
             channelCtrl.getDisplayName = Users.getDisplayName;
+
             channelCtrl.getGravatar = Users.getGravatar;
 
             channelCtrl.logout = function () {
-                Auth.$unauth();
-                $state.go('home');
+                channelCtrl.profile.online = null;
+                channelCtrl.profile.$save().then(function () {
+                    Auth.$unauth();
+                    $state.go('home');
+                });
             };
 
             channelCtrl.newChannel = {
@@ -21,10 +29,9 @@ angular.module('ngfireApp').controller("ChannelCtrl",
             };
 
             channelCtrl.createChannel = function () {
-                channelCtrl.channels.$add(channelCtrl.newChannel).then(function () {
-                    channelCtrl.newChannel = {
-                        name: ''
-                    };
+                channelCtrl.channels.$add(channelCtrl.newChannel).then(function (ref) {
+                    //console.log("from ChannelCtrl, ref.key() = "+ref.key());
+                    $state.go('channels.messages', {channelId: ref.key()});
                 });
             }
         }

@@ -2,9 +2,9 @@
 
 /**
  * @ngdoc overview
- * @name angularfireSlackApp
+ * @name angularfireApp
  * @description
- * # angularfireSlackApp
+ * # angularfireApp
  *
  * Main module of the application.
  */
@@ -39,7 +39,7 @@ angular
                         return Auth.$requireAuth().then(function (auth) {
                             $state.go('home');
                         }, function (error) {
-                            return;
+                            console.log("there was an error in 'requireNoAuth, "+error);
                         })
                     }
                 },
@@ -95,9 +95,11 @@ angular
                         //ensure the user has a displayName, otherwise send to the profile state.
                         //and if the user is not authenticated send to the home state.
                         return Auth.$requireAuth().then(function (auth) {
-                            //console.log("julius, auth = "+auth);
                             return Users.getProfile(auth.uid).$loaded().then(function (profile) {
-                                if(profile.displayName) return profile;
+                                if(profile.displayName) {
+                                    console.log("your logged in: "+profile.displayName);
+                                    return profile;
+                                }
                                 else $state.go('profile');
                             }, function (error) {
                                 console.log("there was an error getting the profile, error ="+error);
@@ -109,13 +111,31 @@ angular
             })
             .state('channels.messages', {
                 url: '/{channelId}/messages',
+                templateUrl: 'channels/messages.html',
+                controller: 'MessagesCtrl as messages',
                 resolve: {
                     //ensure the messages and channelName are available imm! upon entering this state
                     messages: function ($stateParams, Messages) {
                         return Messages.forChannel($stateParams.channelId).$loaded();
                     },
+                    //this'll be what we use to display the channels' name in the messages pane
                     channelName: function ($stateParams, channels) {
                         return '#'+channels.$getRecord($stateParams.channelId).name;
+                    }
+                }
+            })
+            .state('channels.direct', {
+                url: '/{uid}/messages/direct',
+                templateUrl: 'channels/messages.html',
+                controller: 'MessagesCtrl as messages',
+                resolve: {
+                    messages: function ($state, Messages, profile) {
+                        return Messages.forUsers($stateParams.uid, profile.$id).$loaded();
+                    },
+                    channelName: function ($stateParams, Users) {
+                        return Users.all.$loaded().then(function () {
+                            return '@'+Users.getDisplayName($stateParams.uid);
+                        })
                     }
                 }
             })

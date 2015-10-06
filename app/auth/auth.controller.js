@@ -15,6 +15,7 @@ angular.module('ngfireApp')
             };
 
             authCtrl.login = function () {
+                console.log("user.email = "+authCtrl.user.email+", user.password = "+authCtrl.user.password);
                 Auth.$authWithPassword(authCtrl.user).then(function (auth) {
                     $state.go('home');
                 }, function (error) {

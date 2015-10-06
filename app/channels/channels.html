@@ -9,25 +9,37 @@
             <div class="list-head">Channels</div>
 
             <div class="channel" ng-repeat="channel in channel.channels">
-                <a>#{{channel.name}}</a>
+                <!-- from out channel.messages state $stateParam  -->
+                <a ui-sref="channels.messages({channelId: channel.$id})"
+                   ui-sref-active="selected"><!-- add class 'selected' when state is active -->
+                    #{{channel.name}}
+                </a>
             </div>
             <div class="channel create">
                 <!-- this is what will show in the ui-view embedded in this file -->
                 <a ui-sref="channels.create">+create channel</a>
             </div>
+            <div class="list-head">Direct Messages</div>
+            <div class="channel" ng-repeat="user in channel.users">
+                <!-- all long as user.$id is not the users own .$id -->
+                <a ng-if="user.$id !== channel.profile.$id" ui-sref="channels.direct({uid: user.$id})">
+                    <span class="presence" ng-class="{online: channel.profile.online}"></span>
+                    {{user.displayName}}
+                </a>
+            </div>
         </div>
 
         <div class="my-info">
-            <img class="user-pic" ng-src="{{ channels.getGravatar(channelsCtrl.profile.$id) }}" />
+            <img class="user-pic" ng-src="{{ channel.getGravatar(channel.profile.$id) }}" />
             <div class="user-info">
                 <div class="user-name">
-                    {{ channels.profile.displayName }}
+                    <span class="presence" ng-class="{online: channel.profile.online}"></span>
+                    {{ channel.profile.displayName }}
                 </div>
 
                 <div class="options">
-                    <a ui-sref="profile">edit profile</a>
-                    /
-                    <a href="#" ng-click="channels.logout()">logout</a>
+                    <a ui-sref="profile">edit profile</a>/
+                    <a href="#" ng-click="channel.logout()">logout</a>
                 </div>
             </div>
         </div>

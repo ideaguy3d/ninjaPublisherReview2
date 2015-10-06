@@ -6,8 +6,9 @@ angular.module('ngfireApp').factory('Users',
     //something to them will auto update our fbdb
     ['$firebaseArray', '$firebaseObject', 'FirebaseUrl',
         function ($firebaseArray, $firebaseObject, FirebaseUrl) {
-            var usersRef = new Firebase(FirebaseUrl+'users');
+            var usersRef = new Firebase(FirebaseUrl + 'users');
             var users = $firebaseArray(usersRef);
+            var connectedRef = new Firebase(FirebaseUrl + '.info/connect')
 
             return {
                 getProfile: function (uid) {
@@ -18,7 +19,19 @@ angular.module('ngfireApp').factory('Users',
                     return users.$getRecord(uid).displayName;
                 },
                 getGravatar: function (uid) {
-                    return '//www.gravatar.com/avatar/'+users.$getRecord(uid).emailHash;
+                    return '//www.gravatar.com/avatar/' + users.$getRecord(uid).emailHash;
+                },
+                setOnline: function (uid) {
+                    var connected = $firebaseObject(connectedRef);
+                    var online = $firebaseArray(usersRef.child(uid + '/online'));
+
+                    connected.$watch(function () {
+                        if(connected.$value === true){
+                            online.$add(true).then(function (connectedRef) {
+                                connectedRef.onDisconnect().remove();
+                            })
+                        }
+                    })
                 },
                 all: users
             };
