@@ -1,10 +1,9 @@
 'use strict';
-//new WOW().init();
-angular.module('core').controller('HomeController',
-    ['$stateParams', '$scope', 'Authentication', '$firebaseArray',
-    function ($stateParams, $scope, Authentication, $firebaseArray) {
+
+angular.module('ngfireApp').controller('HomeController',
+    ['$stateParams', '$scope', '$firebaseArray',
+    function ($stateParams, $scope, $firebaseArray) {
         // global[to this func] vars
-        $scope.authentication = Authentication;
         $scope.gamesArray = [];
         $scope.urlPublisherParam = $stateParams.publisher;
         var databaseObject;

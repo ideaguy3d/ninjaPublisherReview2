@@ -1,9 +1,9 @@
 'use strict';
 
-angular.module('menu-system').directive('ninjaMenuItem', [
+angular.module('ngfireApp').directive('ninjaMenuItem', [
     function () {
         return {
-            templateUrl: 'modules/menu-system/views/ninja-item.html',
+            templateUrl: 'menu-system/views/ninja-item.html',
             restrict: 'E',
             require: '^ninjaMenu',
             transclude: true,

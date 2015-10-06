@@ -9,11 +9,7 @@
  * Main module of the application.
  */
 angular
-    .module('ngfireApp', [
-        'firebase',
-        'angular-md5',
-        'ui.router'
-    ])
+    .module('ngfireApp', ['firebase', 'angular-md5', 'ngAnimate', 'ui.router', 'ui.bootstrap', 'ui.utils'])
     .config(function ($stateProvider, $urlRouterProvider) {
         $stateProvider
             .state('home', {
@@ -24,7 +20,6 @@ angular
                         return Auth.$requireAuth().then(function (auth) {
                            $state.go('channels');
                         }, function (error) {
-                            return;
                         });
                     }
                 }
@@ -143,6 +138,18 @@ angular
                 url: '/create',
                 templateUrl: 'channels/create.html',
                 controller: 'ChannelCtrl as channel'
+            })
+            .state('publisher_details', {
+                url: '/:publisher',
+                templateUrl: 'core/views/template-publisher.html'
+            })
+            .state('indie_devs', {
+                url: '/indie_devs',
+                templateUrl: 'core/views/indie_devs.html'
+            })
+            .state('ninja_zone', {
+                url: '/ninja_zone',
+                templateUrl: 'modules/core/views/ninja_zone.html'
             });
 
         $urlRouterProvider.otherwise('/');

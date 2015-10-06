@@ -1,9 +1,9 @@
 'use strict';
 
-angular.module('menu-system').directive('jmenuSystem', [
+angular.module('ngfireApp').directive('jmenuSystem', [
 	function() {
 		return {
-			templateUrl: 'modules/menu-system/views/menu-system-template.html',
+			templateUrl: 'menu-system/views/menu-system-template.html',
 			restrict: 'E',
 			controller: 'HeaderController',
             transclude: true,

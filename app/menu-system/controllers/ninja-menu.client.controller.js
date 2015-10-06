@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('menu-system').controller('NinjaMenuController',
+angular.module('ngfireApp').controller('NinjaMenuController',
     ['$scope', '$rootScope',
         function ($scope, $rootScope) {
             $scope.showMenu = true;

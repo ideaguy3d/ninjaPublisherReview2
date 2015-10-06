@@ -13,7 +13,12 @@
 
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="styles/animatecss.css"/>
+    <link rel="stylesheet" href="styles/font-awesome/css/font-awesome.css"/>
     <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="core/css/core.css"/>
+    <link rel="stylesheet" href="core/css/j_core.css"/>
+    <link rel="stylesheet" href="core/css/jmenu-system.css"/>
     <!-- endbuild -->
 </head>
 <body ng-app="ngfireApp">
@@ -22,6 +27,7 @@
     your browser</a> to improve your experience.</p>
 <![endif]-->
 
+<header class="navbar navbar-fixed-top" ng-include="core/views/header.client.view.html"></header>
 <ui-view></ui-view>
 
 
@@ -40,12 +46,18 @@
 
 <!-- build:js(.) scripts/vendor.js -->
 <!-- bower:js -->
-<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/jquery-1.7.1/jquery-1.7.1.js"></script>
+<script src="bower_components/wow/wow.min.js"></script>
 <script src="bower_components/angular/angular.js"></script>
 <script src="bower_components/firebase/firebase.js"></script>
 <script src="bower_components/angularfire/dist/angularfire.js"></script>
 <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 <script src="bower_components/angular-md5/angular-md5.js"></script>
+<script src="bower_components/angular-animate/angular-animate.min.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="bower_components/angular-ui-utils/ui-utils.js"></script>
+<script src="bower_components/ngstorage/ngStorage.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
@@ -59,6 +71,17 @@
 <script src="channels/channels.service.js"></script>
 <script src="channels/messages.controller.js"></script>
 <script src="channels/messages.service.js"></script>
+<script src="core/controllers/header.client.controller.js"></script>
+<script src="core/controllers/home.client.controller.js"></script>
+<script src="core/directives/collapsible.client.directive.js"></script>
+<script src="core/directives/home-thumbnails.client.directive.js"></script>
+<script src="core/directives/votewidget.client.directive.js"></script>
+<script src="menu-system/controllers/ninja-menu.client.controller.js"></script>
+<script src="menu-system/directives/menu-system.client.directive.js"></script>
+<script src="menu-system/directives/ninja-menu.client.directive.js"></script>
+<script src="menu-system/directives/ninja-menu-group.client.directive.js"></script>
+<script src="menu-system/directives/ninja-menu-item.client.directive.js"></script>
+<script src="core/jquery/jparallax.js"></script>
 <!-- endbuild -->
 </body>
 </html>

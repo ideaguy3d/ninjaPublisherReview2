@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('menu-system').directive('ninjaMenuGroup', [
+angular.module('ngfireApp').directive('ninjaMenuGroup', [
 	function() {
 		return {
 			template: '<div></div>',

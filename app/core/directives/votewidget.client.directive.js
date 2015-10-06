@@ -1,9 +1,9 @@
 'use strict';
 
-angular.module('core').directive('voteWidget', [
+angular.module('ngfireApp').directive('voteWidget', [
 	function() {
 		return {
-			templateUrl: 'modules/core/views/template-votewidget.html',
+			templateUrl: 'core/views/template-votewidget.html',
 			restrict: 'E',
 			scope: {
 				voteup: '&',

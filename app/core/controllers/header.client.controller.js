@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('core').controller('HeaderController',
+angular.module('ngfireApp').controller('HeaderController',
     ['$scope', '$rootScope', '$window', '$timeout', '$location',
         function ($scope, $rootScope, $window, $timeout, $location) {
 

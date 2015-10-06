@@ -1,9 +1,9 @@
 'use strict';
 
-angular.module('core').directive('collapsible', [
+angular.module('ngfireApp').directive('collapsible', [
 	function() {
 		return {
-			templateUrl: 'modules/core/views/template-collapsible.html',
+			templateUrl: 'core/views/template-collapsible.html',
 			restrict: 'E',
 			controller: function ($scope) {
                 $scope.visible = true;
