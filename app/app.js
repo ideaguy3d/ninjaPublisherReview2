@@ -14,15 +14,8 @@ angular
         $stateProvider
             .state('home', {
                 url: '/',
-                templateUrl: 'home/home.html',
-                resolve: {
-                    requireNoAuth: function ($state, Auth) {
-                        return Auth.$requireAuth().then(function (auth) {
-                           $state.go('channels');
-                        }, function (error) {
-                        });
-                    }
-                }
+                controller: 'HomeController',
+                templateUrl: 'home/home.html'
             })
             .state('login', {
                 url: '/login',
@@ -32,10 +25,11 @@ angular
                 resolve: {
                     requireNoAuth: function ($state, Auth) {
                         return Auth.$requireAuth().then(function (auth) {
-                            $state.go('home');
+                            $state.go('channels');
                         }, function (error) {
-                            console.log("there was an error in 'requireNoAuth, "+error);
-                        })
+                            console.log(".state('login',... there was an error in 'requireNoAuth, "+error);
+                            return;
+                        });
                     }
                 },
                 templateUrl: 'auth/login.html'
@@ -48,10 +42,10 @@ angular
                 resolve: {
                     requireNoAuth: function ($state, Auth) {
                         return Auth.$requireAuth().then(function (auth) {
-                            $state.go('home');
+                            $state.go('channels');
                         }, function (error) {
                             return;
-                        })
+                        });
                     }
                 },
                 templateUrl: 'auth/register.html'
@@ -92,7 +86,7 @@ angular
                         return Auth.$requireAuth().then(function (auth) {
                             return Users.getProfile(auth.uid).$loaded().then(function (profile) {
                                 if(profile.displayName) {
-                                    console.log("your logged in: "+profile.displayName);
+                                    //console.log("your logged in: "+profile.displayName);
                                     return profile;
                                 }
                                 else $state.go('profile');
@@ -141,15 +135,26 @@ angular
             })
             .state('publisher_details', {
                 url: '/{publisher}',
+                controller: 'HomeController',
                 templateUrl: 'core/views/template-publisher.html'
             })
             .state('indie_devs', {
-                url: '/indie_devs',
+                url: '/indie_devs/indie',
+                controller: 'AuthCtrl as auth',
                 templateUrl: 'core/views/indie_devs.html'
             })
             .state('ninja_zone', {
-                url: '/ninja_zone',
-                templateUrl: 'modules/core/views/ninja_zone.html'
+                url: '/ninja_zone_enter/enter',
+                resolve: {
+                    requireNoAuth: function ($state, Auth) {
+                        return Auth.$requireAuth().then(function (auth) {
+                            $state.go('channels');
+                        }, function (error) {
+                            return;
+                        });
+                    }
+                },
+                templateUrl: 'home/ninja_zone.html'
             });
 
         $urlRouterProvider.otherwise('/');

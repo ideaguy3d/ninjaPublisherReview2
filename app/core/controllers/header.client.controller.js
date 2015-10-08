@@ -7,7 +7,7 @@ angular.module('ngfireApp').controller('HeaderController',
             $scope.title = "Ninja Game Publishers";
             $scope.subtitle = "rate publishers by rating their games";
             var star = true, zLogo;
-            zLogo = star ? 'modules/core/css/ninja_star.svg' : 'modules/core/img/art1.png';
+            zLogo = star ? 'core/css/ninja_star.png' : 'core/img/art1.png';
             $scope.ninja_icon = zLogo;
             $scope.isMenuButtonVisible = true;
             $scope.isMenuVisible = true;

@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('ngfireApp').controller('NinjaMenuController',
-    ['$scope', '$rootScope',
-        function ($scope, $rootScope) {
+    ['$scope', '$rootScope', '$state',
+        function ($scope, $rootScope, $state) {
             $scope.showMenu = true;
             $scope.openMenuScope = null;
             $scope.isHorizontal = true;
@@ -24,6 +24,10 @@ angular.module('ngfireApp').controller('NinjaMenuController',
             this.isHorizontal = function() {
                 //console.log("this.isHorizontal() invoked");
                 return $scope.isHorizontal;
+            };
+
+            this.setState = function (state) {
+                $state.go(state);
             };
 
 

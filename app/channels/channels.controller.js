@@ -11,17 +11,30 @@ angular.module('ngfireApp').controller("ChannelCtrl",
             channelCtrl.profile = profile;
             channelCtrl.channels = channels;
             channelCtrl.users = Users.all;
+            channelCtrl.channelClicked = false;
 
             channelCtrl.getDisplayName = Users.getDisplayName;
 
             channelCtrl.getGravatar = Users.getGravatar;
 
+            channelCtrl.channelClick = function () {
+                console.log("Z channel was just clicked");
+                channelCtrl.channelClicked = true;
+            };
+
             channelCtrl.logout = function () {
                 channelCtrl.profile.online = null;
-                channelCtrl.profile.$save().then(function () {
-                    Auth.$unauth();
-                    $state.go('home');
-                });
+                console.log("channelCtrl.logout: outside of $save()");
+                channelCtrl.profile.$save()
+                    .then(
+                    function () {//.then() success cb
+                        console.log("channelCtrl.logout: above");
+                        Auth.$unauth();
+                        $state.go('home');
+                        console.log("channelCtrl.logout: below");
+                    }, function (error) {//.then() error cb
+                        console.log("there was an error while profile.$save(), " + error);
+                    });
             };
 
             channelCtrl.newChannel = {

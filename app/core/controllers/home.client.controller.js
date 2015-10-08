@@ -10,7 +10,7 @@ angular.module('ngfireApp').controller('HomeController',
         var firebase_ref = new Firebase('https://resplendent-torch-1239.firebaseio.com/');
         $scope.game_publishers = $firebaseArray(firebase_ref);
         $scope.sortgames = 'name';
-        $scope.star = 'modules/core/css/ninja_star.png';
+        $scope.star = 'core/css/ninja_star.png';
         //global vars end
 
         /**
@@ -18,7 +18,6 @@ angular.module('ngfireApp').controller('HomeController',
          * */
         //this will need to become a service !!
         $scope.InitPublisherData = function () {
-
             firebase_ref.on('value', function (snapshot) {
                 databaseObject = snapshot.val();
                 //TODO: re-implement as .val().child()

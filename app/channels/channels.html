@@ -6,12 +6,12 @@
         </div>
         <!-- the list of channels on left side of view -->
         <div class="channel-list">
+            <!-- Channels list -->
             <div class="list-head">Channels</div>
-
             <div class="channel" ng-repeat="channel in channel.channels">
                 <!-- from out channel.messages state $stateParam  -->
                 <a ui-sref="channels.messages({channelId: channel.$id})"
-                   ui-sref-active="selected"><!-- add class 'selected' when state is active -->
+                   ui-sref-active="selected" ng-click="channel.channelClick()"><!-- add class 'selected' when state is active -->
                     #{{channel.name}}
                 </a>
             </div>
@@ -19,6 +19,8 @@
                 <!-- this is what will show in the ui-view embedded in this file -->
                 <a ui-sref="channels.create">+create channel</a>
             </div>
+
+            <!-- Direct list -->
             <div class="list-head">Direct Messages</div>
             <div class="channel" ng-repeat="user in channel.users">
                 <!-- all long as user.$id is not the users own .$id -->
@@ -45,8 +47,9 @@
         </div>
     </div>
 
-    <!-- where all the messaging can happen based on channel we're in -->
+    <!-- where all the messaging will happen based on channel we're in -->
     <div class="message-pane">
+        <h1 ng-show="!channel.channelClicked">Click a Channel Name (:</h1>
         <ui-view></ui-view>
     </div>
 </div>

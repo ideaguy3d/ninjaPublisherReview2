@@ -10,7 +10,7 @@ angular.module('ngfireApp').directive('ninjaMenuItem', [
             scope: {
                 label: '@',
                 icon: '@',
-                route: '@'
+                uistate: '@'
             },
             link: function(scope, element, attrs, ctrl) {
                 scope.isActive = function(){
@@ -25,7 +25,7 @@ angular.module('ngfireApp').directive('ninjaMenuItem', [
                     event.stopPropagation();
                     scope.$apply(function () {
                         ctrl.setActiveElement(element);
-                        //ctrl.setRoute(scope.route);
+                        ctrl.setState(scope.uistate);
                     });
                 });
             }

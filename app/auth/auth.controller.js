@@ -15,12 +15,13 @@ angular.module('ngfireApp')
             };
 
             authCtrl.login = function () {
-                console.log("user.email = "+authCtrl.user.email+", user.password = "+authCtrl.user.password);
-                Auth.$authWithPassword(authCtrl.user).then(function (auth) {
-                    $state.go('home');
-                }, function (error) {
-                    authCtrl.error = error;
-                })
+                //console.log("user.email = "+authCtrl.user.email+", user.password = "+authCtrl.user.password);
+                Auth.$authWithPassword(authCtrl.user)
+                    .then(function (auth) {//login did succeed
+                        $state.go('channels');
+                    }, function (error) {//login did NOT succeed
+                        authCtrl.error = error;
+                    });
             };
 
             authCtrl.register = function () {
