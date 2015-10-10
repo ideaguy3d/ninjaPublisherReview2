@@ -1,9 +1,26 @@
 <div class="main">
     <div class="sidebar">
 
-        <div class="slack-name">
-            <h2>FireSlack</h2>
+        <div class="ninja-name">
+            <h2>Ninja Chat</h2>
         </div>
+
+        <!-- little user info box of the chat sidebar -->
+        <div class="my-info">
+            <img class="user-pic" ng-src="{{ channel.getGravatar(channel.profile.$id) }}" />
+            <div class="user-info">
+                <div class="user-name">
+                    <span class="presence" ng-class="{online: channel.profile.online}"></span>
+                    {{ channel.profile.displayName }}
+                </div>
+
+                <div class="options">
+                    <a ui-sref="profile">edit profile</a>/
+                    <a href="#" ng-click="channel.logout()">logout</a>
+                </div>
+            </div>
+        </div>
+
         <!-- the list of channels on left side of view -->
         <div class="channel-list">
             <!-- Channels list -->
@@ -31,20 +48,6 @@
             </div>
         </div>
 
-        <div class="my-info">
-            <img class="user-pic" ng-src="{{ channel.getGravatar(channel.profile.$id) }}" />
-            <div class="user-info">
-                <div class="user-name">
-                    <span class="presence" ng-class="{online: channel.profile.online}"></span>
-                    {{ channel.profile.displayName }}
-                </div>
-
-                <div class="options">
-                    <a ui-sref="profile">edit profile</a>/
-                    <a href="#" ng-click="channel.logout()">logout</a>
-                </div>
-            </div>
-        </div>
     </div>
 
     <!-- where all the messaging will happen based on channel we're in -->
@@ -53,3 +56,10 @@
         <ui-view></ui-view>
     </div>
 </div>
+<script>
+    var titleBottom = $('.ninja-name>h2').offset();
+    var windowTop = $(window).scrollTop();
+    $(document).on('scroll', function () {
+        console.log("ninja-name h2 bottom = "+windowTop);
+    });
+</script>

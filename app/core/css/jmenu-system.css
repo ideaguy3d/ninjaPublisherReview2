@@ -75,7 +75,7 @@
   padding: 2px 8px;
   color: #8c8c8c;
   border: solid 1px #ddd;
-  border-radius: 0px;
+  border-radius: 0;
 }
 .ninja-layout-button-horizontal {
   display: inline-block;
@@ -89,7 +89,6 @@
   width: 200px;
   min-height: 100vh;
   padding-top: 30px;
-  z-index: 30 !important;
   background-color: rgba(245,245,245,0.7);
 }
 .ninja-collapsed-menu {

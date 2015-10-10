@@ -16,7 +16,7 @@ angular.module('ngfireApp').controller('HeaderController',
 
             $scope.$on('ninja-menu-orientation-changed-event', function (event, data) {
                 $scope.isMenuHorizontal = data.isMenuHorizontal;
-                $scope.style4vert = data.isMenuHorizontal ? {'z-index':'1030'} : {'z-index':'1'};
+                $scope.style4vert = data.isMenuHorizontal ? {'z-index':'1030'} : {'z-index':'1', 'width':'200px'};
 
                 //this fix's issue w/contents edge going off screen, we call $timeout
                 //because when this event is called we're in the middle of a digest cycle

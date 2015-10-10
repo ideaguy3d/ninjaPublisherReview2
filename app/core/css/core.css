@@ -88,11 +88,6 @@ body.ng-cloak {
 }
 
 #content article {
-    /**border: 1px solid #ddd;
-    height: 200px;
-    background-color: #f4f4f4;
-    opacity: .8;
-    */
     margin: 50px 0;
     padding: 20px;
     text-align: left;
