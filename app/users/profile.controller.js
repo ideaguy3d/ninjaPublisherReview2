@@ -13,10 +13,11 @@ angular.module('ngfireApp')
 
             //user should be on this page to update their profile. So lets add that functionality
             profileCtrl.updateProfile = function () {
-                //this is our gravatar url, .password is coming from the fb Auth obj because
+                //this is our gravatar url, .password is coming from the fireb auth obj because
                 //we're using pw based authentication. If we were using FaceBook we'd use .Facebook
-                profileCtrl.profile.emailHash = md5.createHash(auth.password.email);
-                console.log("profileCtrl.profile.email = "+profileCtrl.profile.email);
+                console.log("auth.profile = "+auth.profile);
+                profileCtrl.profile.emailHash = auth.profile ? md5.createHash(auth.profile.email) : "anonymous_user";
+
                 profileCtrl.profile.$save().then(function () {
                     $state.go('channels');
                 });

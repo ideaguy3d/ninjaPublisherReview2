@@ -27,8 +27,7 @@ angular
                         return Auth.$requireAuth().then(function (auth) {
                             $state.go('channels');
                         }, function (error) {
-                            console.log(".state('login',... there was an error in 'requireNoAuth, "+error);
-                            return;
+                            console.log(".state('login',...) error in 'requireNoAuth:: "+error);
                         });
                     }
                 },
@@ -44,13 +43,14 @@ angular
                         return Auth.$requireAuth().then(function (auth) {
                             $state.go('channels');
                         }, function (error) {
-                            return;
+                            console.log(".state(register) error in requireNoAuth:: "+error);
                         });
                     }
                 },
                 templateUrl: 'auth/register.html'
             })
-            .state('profile', {
+            .state('profile', {//rem.when we enter this state we're already logged in which means
+                //we have a display we can edit. Currently this state only edits the username of the user
                 url: '/profile',
                 controller: 'ProfileCtrl as profile',
                 templateUrl: 'users/profile.html',
@@ -59,13 +59,15 @@ angular
                         //.catch is shorthand for handling promises we don't want to provide
                         //a success handler for. i.e. if they're not authenticated we want to
                         //send them home.
-                        return Auth.$requireAuth().catch(function () {
+                        return Auth.$requireAuth().catch(function () {//we have to use .catch() because
+                            //promise will get rejected if the user is not authenticated
                             $state.go('home');
                         });
                     },
                     profile: function (Users, Auth) {
                         return Auth.$requireAuth().then(function (auth) {
                             //.$loaded returns a promise that gets resolved when fb data is available locally
+                            console.log(".state(profile) resolve.profile, auth.uid = "+auth.uid);
                             return Users.getProfile(auth.uid).$loaded();
                         });
                     }
@@ -74,7 +76,6 @@ angular
             .state('channels', {
                 url: '/channels',
                 controller: 'ChannelCtrl as channel',
-                templateUrl: 'channels/channels.html',
                 resolve: {//resolve these 2 dependencies.
                     channels: function (Channels) {
                         //this 'promises' the firebaseArray of channels
@@ -83,20 +84,35 @@ angular
                     profile: function ($state, Auth, Users) {
                         //ensure the user has a displayName, otherwise send to the profile state.
                         //and if the user is not authenticated send to the home state.
-                        return Auth.$requireAuth().then(function (auth) {
-                            return Users.getProfile(auth.uid).$loaded().then(function (profile) {
-                                if(profile.displayName) {
-                                    //console.log("your logged in: "+profile.displayName);
-                                    return profile;
+                        return Auth.$waitForAuth().then(
+                            function (auth) {//.the user has been authenticated
+                                for(var prop in auth){
+                                    console.log("auth.prop = "+prop);
                                 }
-                                else $state.go('profile');
-                            }, function (error) {
-                                console.log("there was an error getting the profile, error ="+error);
-                                $state.go('home');
-                            });
-                        });
+                                if (auth) {
+                                    console.log("entered .state('channel'), auth = "+auth);
+                                    return Users.getProfile(auth.uid).$loaded().then(function (profile) {
+                                            if (profile.displayName) {
+                                                return profile;
+                                            }
+                                            //else $state.go('profile');
+                                        }, function (error) {
+                                            console.log("error getting profile:: "+error);
+                                            //$state.go('home');
+                                        }
+                                    );
+                                }
+                                else {
+                                    return null;
+                                }
+                            },
+                            function (error) {//if the user is not authenticated then authenticate anonymously
+                                console.log("there was an error w/.$waitForAuth()");
+                            }
+                        );
                     }
-                }
+                },
+                templateUrl: 'channels/channels.html'
             })
             .state('channels.messages', {
                 url: '/{channelId}/messages',
@@ -109,7 +125,7 @@ angular
                     },
                     //this'll be what we use to display the channels' name in the messages pane
                     channelName: function ($stateParams, channels) {
-                        return '#'+channels.$getRecord($stateParams.channelId).name;
+                        return '#' + channels.$getRecord($stateParams.channelId).name;
                     }
                 }
             })
@@ -123,7 +139,7 @@ angular
                     },
                     channelName: function ($stateParams, Users) {
                         return Users.all.$loaded().then(function () {
-                            return '@'+Users.getDisplayName($stateParams.uid);
+                            return '@' + Users.getDisplayName($stateParams.uid);
                         })
                     }
                 }
@@ -144,13 +160,14 @@ angular
                 templateUrl: 'core/views/indie_devs.html'
             })
             .state('ninja_zone', {
-                url: '/ninja_zone_enter/enter',
+                url: '/ninja_zone/enter',
+                controller: 'AuthCtrl as auth',
                 resolve: {
                     requireNoAuth: function ($state, Auth) {
                         return Auth.$requireAuth().then(function (auth) {
+                            //console.log("you're already logged in, go to channels (:");
                             $state.go('channels');
-                        }, function (error) {
-                            return;
+                        }, function () {
                         });
                     }
                 },

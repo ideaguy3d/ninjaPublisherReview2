@@ -6,15 +6,13 @@ angular.module('ngfireApp').controller("ChannelCtrl",
         function ($state, Auth, Users, profile, channels) {
             var channelCtrl = this;
 
-            Users.setOnline(profile.$id);
+            //Users.setOnline(profile.$id);
 
             channelCtrl.profile = profile;
             channelCtrl.channels = channels;
             channelCtrl.users = Users.all;
             channelCtrl.channelClicked = false;
-
             channelCtrl.getDisplayName = Users.getDisplayName;
-
             channelCtrl.getGravatar = Users.getGravatar;
 
             channelCtrl.channelClick = function () {
@@ -23,18 +21,21 @@ angular.module('ngfireApp').controller("ChannelCtrl",
             };
 
             channelCtrl.logout = function () {
+                Auth.$unauth();
+                $state.go('home');
                 channelCtrl.profile.online = null;
-                console.log("channelCtrl.logout: outside of $save()");
-                channelCtrl.profile.$save()
-                    .then(
+                channelCtrl.profile.$save().then(
                     function () {//.then() success cb
-                        console.log("channelCtrl.logout: above");
                         Auth.$unauth();
                         $state.go('home');
-                        console.log("channelCtrl.logout: below");
-                    }, function (error) {//.then() error cb
-                        console.log("there was an error while profile.$save(), " + error);
-                    });
+                    },
+                    function (error) {//.then() error cb
+                        //even if there's an error we still need to logout, so logout
+                        Auth.$unauth();
+                        $state.go('home');
+                        console.log("error in channelCtrl.logout:: " + error);
+                    }
+                );
             };
 
             channelCtrl.newChannel = {

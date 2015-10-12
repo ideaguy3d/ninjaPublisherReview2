@@ -2,24 +2,28 @@
  * Created by Julius Hernandez on 10/2/2015.
  */
 angular.module('ngfireApp').factory('Users',
-    //these are helper methods for accessing data in the firebase database. Adding
-    //something to them will auto update our fbdb
     ['$firebaseArray', '$firebaseObject', 'FirebaseUrl',
         function ($firebaseArray, $firebaseObject, FirebaseUrl) {
             var usersRef = new Firebase(FirebaseUrl + 'users');
             var users = $firebaseArray(usersRef);
-            var connectedRef = new Firebase(FirebaseUrl + '.info/connect')
+            var connectedRef = new Firebase(FirebaseUrl + '.info/connect');
 
             return {
                 getProfile: function (uid) {
+                    console.log("Users.getProfile(uid), uid = "+uid);
                     return $firebaseObject(usersRef.child(uid));
                 },
                 getDisplayName: function (uid) {
-                    //this is a convenience method for fb arrays
+                    //.$getRecord is a convenience method for fireb arrays
                     return users.$getRecord(uid).displayName;
                 },
                 getGravatar: function (uid) {
-                    return '//www.gravatar.com/avatar/' + users.$getRecord(uid).emailHash;
+                    if(users.$getRecord(uid).emailHash){
+                        return '//www.gravatar.com/avatar/' +
+                            users.$getRecord(uid).emailHash;
+                    } else {
+                        return '//www.gravatar.com/avatar/';
+                    }
                 },
                 setOnline: function (uid) {
                     var connected = $firebaseObject(connectedRef);
@@ -33,7 +37,8 @@ angular.module('ngfireApp').factory('Users',
                         }
                     })
                 },
-                all: users
+                all: users,
+                usersDb: usersRef
             };
         }
     ]

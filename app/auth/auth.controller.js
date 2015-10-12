@@ -3,8 +3,8 @@
  */
 
 angular.module('ngfireApp')
-    .controller('AuthCtrl', ['Auth', '$state',
-        function (Auth, $state) {//$state to use .go() to auto send users to a different page
+    .controller('AuthCtrl', ['Auth', '$state', 'Users', 'md5',
+        function (Auth, $state, Users, md5) {//$state to use .go() to auto send users to a different page
             //to use 'controller as' syntax
             var authCtrl = this;
 
@@ -31,7 +31,23 @@ angular.module('ngfireApp')
                 }, function (error) {
                     authCtrl.error = error;
                 });
-            }
+            };
+
+            authCtrl.registerAnonymously = function () {
+                Auth.$authAnonymously().then(function (authData) {
+                    //manually give anonymous user an email, pw, displayName & .$id
+                    Auth.$createUser({email: authData.uid+"@ninjaguest.app", password:"temp"+authData.uid})
+                        .then(function (anonUserData) {
+                            anonUserData.displayName = anonUserData.uid+"@ninjaguest.app";
+                            //anonUserData.$id = anonUserData.uid;
+                            anonUserData.emailHash = "anonymous_user";
+                            Users.all.$add(anonUserData);
+                        });
+                    $state.go('profile');
+                }).catch(function (error) {
+                    console.log('authCtrl.registerAnonymously() failed:: ' + error);
+                });
+            };
         }]
 );
 

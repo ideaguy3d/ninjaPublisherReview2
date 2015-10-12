@@ -3,10 +3,12 @@ body {
 }
 
 .page-wrapper {
-    max-width: 550px;
+    max-width: 70%;
     margin-right: auto;
     margin-left: auto;
     padding: 15px;
+    height: 800px;
+    padding-top: 140px;
 }
 
 .page-wrapper .logo-img {
@@ -170,7 +172,7 @@ body {
 
 .message-pane .message-form {
     position: absolute;
-    bottom: -2px;
+    bottom: 10px;
     padding: 0 15px 1px 0;
     background: #fff;
     width: 79%;
@@ -204,4 +206,10 @@ body {
     color: #ccc;
     font-weight: normal;
     font-size: 10px;
+}
+
+
+a.btn.btn-lg {
+    width: 190px;
+    border-radius: 0;
 }
