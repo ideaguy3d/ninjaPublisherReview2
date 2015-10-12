@@ -86,9 +86,9 @@ angular
                         //and if the user is not authenticated send to the home state.
                         return Auth.$waitForAuth().then(
                             function (auth) {//.the user has been authenticated
-                                for(var prop in auth){
-                                    console.log("auth.prop = "+prop);
-                                }
+                                //for(var prop in auth){
+                                //    console.log("auth.prop = "+prop);
+                                //}
                                 if (auth) {
                                     console.log("entered .state('channel'), auth = "+auth);
                                     return Users.getProfile(auth.uid).$loaded().then(function (profile) {
@@ -117,7 +117,7 @@ angular
             .state('channels.messages', {
                 url: '/{channelId}/messages',
                 templateUrl: 'channels/messages.html',
-                controller: 'MessagesCtrl as messages',
+                controller: 'MessagesCtrl as messagesCtrl',
                 resolve: {
                     //ensure the messages and channelName are available imm! upon entering this state
                     messages: function ($stateParams, Messages) {
@@ -132,9 +132,9 @@ angular
             .state('channels.direct', {
                 url: '/{uid}/messages/direct',
                 templateUrl: 'channels/messages.html',
-                controller: 'MessagesCtrl as messages',
-                resolve: {
-                    messages: function ($state, Messages, profile) {
+                controller: 'MessagesCtrl as messagesCtrl',
+                resolve: {      //rem. profile is coming from the parent state 'channels'
+                    messages: function ($stateParams, Messages, profile) {
                         return Messages.forUsers($stateParams.uid, profile.$id).$loaded();
                     },
                     channelName: function ($stateParams, Users) {

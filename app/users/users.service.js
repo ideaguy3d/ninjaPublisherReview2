@@ -6,7 +6,7 @@ angular.module('ngfireApp').factory('Users',
         function ($firebaseArray, $firebaseObject, FirebaseUrl) {
             var usersRef = new Firebase(FirebaseUrl + 'users');
             var users = $firebaseArray(usersRef);
-            var connectedRef = new Firebase(FirebaseUrl + '.info/connect');
+            var connectedRef = new Firebase(FirebaseUrl + '.info/connected');
 
             return {
                 getProfile: function (uid) {
@@ -32,6 +32,7 @@ angular.module('ngfireApp').factory('Users',
                     connected.$watch(function () {
                         if(connected.$value === true){
                             online.$add(true).then(function (connectedRef) {
+                                //if user closes tab we want that to be reflected
                                 connectedRef.onDisconnect().remove();
                             })
                         }

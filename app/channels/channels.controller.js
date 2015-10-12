@@ -6,11 +6,11 @@ angular.module('ngfireApp').controller("ChannelCtrl",
         function ($state, Auth, Users, profile, channels) {
             var channelCtrl = this;
 
-            //Users.setOnline(profile.$id);
+            Users.setOnline(profile.$id);
 
             channelCtrl.profile = profile;
             channelCtrl.channels = channels;
-            channelCtrl.users = Users.all;
+            channelCtrl.users = Users.all; //we want to be able to access all of our users because they're going to be in a list in our sidebar
             channelCtrl.channelClicked = false;
             channelCtrl.getDisplayName = Users.getDisplayName;
             channelCtrl.getGravatar = Users.getGravatar;
@@ -21,8 +21,8 @@ angular.module('ngfireApp').controller("ChannelCtrl",
             };
 
             channelCtrl.logout = function () {
-                Auth.$unauth();
-                $state.go('home');
+                //Auth.$unauth();
+                //$state.go('home');
                 channelCtrl.profile.online = null;
                 channelCtrl.profile.$save().then(
                     function () {//.then() success cb

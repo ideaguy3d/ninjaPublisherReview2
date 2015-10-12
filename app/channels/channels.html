@@ -38,11 +38,11 @@
             </div>
 
             <!-- Direct list -->
-            <div class="list-head">Direct Messages</div>
+            <div class="list-head">Other Users</div>
             <div class="channel" ng-repeat="user in channel.users">
-                <!-- all long as user.$id is not the users own .$id -->
-                <a ng-if="user.$id !== channel.profile.$id" ui-sref="channels.direct({uid: user.$id})">
-                    <span class="presence" ng-class="{online: channel.profile.online}"></span>
+                <!-- all long as user.$id is not the users own .$id, then set url var uid to users.$id -->
+                <a ng-if="user.$id !== channel.profile.$id" ui-sref="channels.direct({uid:user.$id})" ui-sref-active="selected">
+                    <span class="presence" ng-class="{online: user.online}"></span>
                     {{user.displayName}}
                 </a>
             </div>
