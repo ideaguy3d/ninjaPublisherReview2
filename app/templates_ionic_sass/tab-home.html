@@ -1,0 +1,35 @@
+<ion-view view-title="Account">
+    <ion-content class="padding jscroll-bg">
+        <ion-header-bar class="bar-positive">
+            <h1 class="title"><strong>Home</strong></h1>
+        </ion-header-bar>
+        <ion-header-bar class="bar-subheader bar-positive">
+            <h1 class="title">Subheader Bar</h1>
+        </ion-header-bar>
+        <!-- bp list, inserted some stuff here -->
+        <ion-list>
+            <button class="button button-positive">button</button>
+            <button class="button button-block button-outline button-positive">Outline Button</button>
+            <button class="button button-block button-positive">Block Button</button>
+            <button class="button button-block button-clear button-positive">Clear Button</button>
+            <ion-item href="#" class="item-positive">Item</ion-item>
+            <ion-toggle toggle-class="toggle-positive">Toggle</ion-toggle>
+            <!-- bp toggle -->
+            <ion-toggle ng-model="settings.enableFriends">Enable Friends</ion-toggle>
+            <div class="item range range-positive">
+                <i class="icon ion-ios7-sunny-outline"></i>
+                <input type="range" name="volume" min="0" max="100" value="77"/>
+                <i class="icon ion-ios7-sunny"></i>
+                <a href="#" class="item">
+                    |
+                    <span class="badge badge-positive">7</span>
+                </a>
+            </div>
+        </ion-list>
+        <h2>Home content</h2>
+    </ion-content>
+    <!-- footer will be right above tab-bar -->
+    <ion-footer-bar class="bar-positive">
+        <h1 class="title">jFooter Home Tab</h1>
+    </ion-footer-bar>
+</ion-view>

@@ -12,14 +12,17 @@
     <!-- endbuild -->
 
     <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" href="styles/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
     <link rel="stylesheet" href="styles/animatecss.css"/>
     <link rel="stylesheet" href="styles/font-awesome/css/font-awesome.css"/>
     <link rel="stylesheet" href="styles/main.css">
     <link rel="stylesheet" href="core/css/core.css"/>
     <link rel="stylesheet" href="core/css/j_core.css"/>
     <link rel="stylesheet" href="core/css/jmenu-system.css"/>
+    <link rel="stylesheet" href="subnav/subnav.css"/>
     <!-- endbuild -->
+
+    <!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>-->
 </head>
 <body ng-app="ngfireApp">
 <!--[if lt IE 7]>
@@ -29,6 +32,8 @@
 
 <header data-ng-include="'core/views/header.client.view.html'" ng-controller="HeaderController"
         class="navbar navbar-fixed-top" ng-style="style4vert"></header>
+
+<div ng-include="'subnav/subnav.html'" style="margin-left: 20%; margin-top: 4%; width: 70%"></div>
 
 <ui-view></ui-view>
 
@@ -62,18 +67,21 @@
 
 <!-- build:js(.) scripts/vendor.js -->
 <!-- bower:js -->
-<script src="bower_components/jquery-1.7.1/jquery-1.7.1.js"></script>
-<script src="bower_components/wow/wow.min.js"></script>
+<script src="bower_components/jquery/dist/jquery.js"></script>
 <script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
 <script src="bower_components/firebase/firebase.js"></script>
 <script src="bower_components/angularfire/dist/angularfire.js"></script>
 <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="bower_components/angular-ui-utils/ui-utils.min.js"></script>
 <script src="bower_components/angular-md5/angular-md5.js"></script>
-<script src="bower_components/angular-animate/angular-animate.min.js"></script>
-<script src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
-<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-<script src="bower_components/angular-ui-utils/ui-utils.js"></script>
-<script src="bower_components/ngstorage/ngStorage.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+<script src="bower_components/angular-touch/angular-touch.min.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+<script src="bower_components/angular-resource/angular-resource.min.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/wow/wow.js"></script>
 <!-- endbower -->
 <!-- endbuild -->
 
@@ -97,6 +105,15 @@
 <script src="menu-system/directives/ninja-menu.client.directive.js"></script>
 <script src="menu-system/directives/ninja-menu-group.client.directive.js"></script>
 <script src="menu-system/directives/ninja-menu-item.client.directive.js"></script>
+<script src="indiedev/jhafactoryservice.js"></script>
+<script src="posts/posts.controller.js"></script>
+<script src="posts/post.service.js"></script>
+<script src="posts/postDetailsCtrl.js"></script>
+<script src="subnav/subnavCtrl.js"></script>
+<script src="subnav/url-filter.js"></script>
+<script src="subnav/post-auth.js"></script>
+<script src="posts/postAuthCtrl.js"></script>
+
 <script src="core/jquery/jparallax.js"></script>
 <!-- endbuild -->
 </body>

@@ -1,0 +1,21 @@
+div.list.list-inset  {
+  background-color: whitesmoke;
+  color: $positive;
+  > div.item {
+    background-color: whitesmoke;
+    color: $positive;
+  }
+}
+
+.bar-positive {
+  height: 33%;
+  > div.item.tabs.tabs-secondary.tabs-icon-left {
+    //.tabs.tabs-secondary.tabs-icon-left
+    color: $positive;
+  }
+}
+
+//.bar-calm {
+//  margin-top:33%;
+//  width: 100%;
+//}
